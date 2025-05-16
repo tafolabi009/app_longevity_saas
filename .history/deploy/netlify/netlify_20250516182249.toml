@@ -1,0 +1,15 @@
+[build]
+base = "frontend/"
+publish = "dist/"
+command = "npm ci && npm run build"
+
+[context.production.environment]
+VITE_API_BASE_URL = "https://app-longevity-saas-backend.onrender.com/api/v1"
+
+[context.deploy-preview.environment]
+VITE_API_BASE_URL = "https://app-longevity-saas-backend.onrender.com/api/v1"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200 

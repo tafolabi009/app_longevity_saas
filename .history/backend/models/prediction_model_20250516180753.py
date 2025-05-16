@@ -91,25 +91,11 @@ class AppLongevityPredictorService:
         try:
             # Check if model is loaded
             if self.model is None:
-                logger.warning(f"Model not loaded. Attempting to load model: {self.model_name}")
                 if not self.load_model():
-                    # If we can't load the specified model, try to load any available model
-                    available_models = model_manager.get_available_models()
-                    if available_models:
-                        alt_model = available_models[0]
-                        logger.warning(f"Trying alternative model: {alt_model}")
-                        if self.load_model(alt_model):
-                            logger.info(f"Successfully loaded alternative model: {alt_model}")
-                        else:
-                            return {
-                                "app_name": app_name,
-                                "error": "No prediction model available"
-                            }
-                    else:
-                        return {
-                            "app_name": app_name,
-                            "error": "No prediction model available"
-                        }
+                    return {
+                        "app_name": app_name,
+                        "error": "No prediction model available"
+                    }
             
             # Fetch app data from stores
             ios_data = await self._fetch_app_store_data(app_name)

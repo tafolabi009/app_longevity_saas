@@ -38,7 +38,7 @@ class Settings(BaseSettings):
         "http://localhost",
         "https://localhost",
         "https://app-longevity-predictor.netlify.app",  # Netlify domain
-        "https://app-longevity-saas.netlify.app",       # Alternative Netlify domain
+        "https://app-longevity-predictor.netlify.app",
         "https://app-longevity-predictor.vercel.app",
     ]
     

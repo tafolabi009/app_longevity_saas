@@ -45,42 +45,22 @@ class ModelManager:
         try:
             # Search in all model paths
             for base_path in self.model_paths:
-                if not base_path:
-                    continue
-                    
                 # Ensure path is absolute or relative to the backend directory
                 if not os.path.isabs(base_path):
-                    # Try multiple reference points to handle different environments
-                    possible_paths = [
-                        os.path.join(os.path.dirname(__file__), "..", base_path),  # Relative to services dir
-                        os.path.join(os.path.dirname(__file__), base_path),        # Directly in services dir
-                        os.path.abspath(base_path)                                 # Absolute from working dir
-                    ]
-                    
-                    # Use the first path that exists or the first one if none exist
-                    for path in possible_paths:
-                        if os.path.exists(os.path.dirname(path)):
-                            base_path = path
-                            break
-                    else:
-                        base_path = possible_paths[0]
-                
-                logger.info(f"Looking for models in: {base_path}")
+                    base_path = os.path.join(os.path.dirname(__file__), "..", base_path)
                 
                 # Ensure model directory exists
                 os.makedirs(base_path, exist_ok=True)
                 
                 # Search for model files with supported extensions
                 for ext in self.model_extensions:
-                    model_pattern = os.path.join(base_path, f"*{ext}")
-                    logger.debug(f"Searching with pattern: {model_pattern}")
-                    model_files = glob.glob(model_pattern)
+                    model_files = glob.glob(os.path.join(base_path, f"*{ext}"))
                     
                     for model_path in model_files:
                         model_file = os.path.basename(model_path)
                         
                         # Skip scaler and preprocessor files
-                        if model_file == "scaler.joblib" or model_file.startswith(("preprocessor")):
+                        if model_file == "scaler.joblib" or model_file.startswith("preprocessor"):
                             continue
                         
                         model_name = os.path.splitext(model_file)[0]
@@ -109,14 +89,13 @@ class ModelManager:
                             'full_path': model_path,
                             'directory': base_path
                         }
-                        logger.info(f"Discovered model: {model_name} at {model_path}")
             
             self.models = model_info
             logger.info(f"Discovered {len(model_info)} models: {list(model_info.keys())}")
             
             return model_info
         except Exception as e:
-            logger.error(f"Error discovering models: {str(e)}", exc_info=True)
+            logger.error(f"Error discovering models: {str(e)}")
             return {}
     
     def load_model(self, model_name: Optional[str] = None) -> Dict:

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./model_training:/app/model_training
+    environment:
+      - DATABASE_URL=sqlite:///./app_longevity.db
+      - SECRET_KEY=your_development_secret_key
+      - DEFAULT_MODEL=rf_model.joblib
+      - ADDITIONAL_MODEL_PATHS=model_training/example_models
+    restart: unless-stopped
+
+  frontend:
+    image: node:14
+    working_dir: /app/frontend
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install && npm run dev"
+    depends_on:
+      - backend
+    restart: unless-stopped 
