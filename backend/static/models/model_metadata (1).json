@@ -1,0 +1,125 @@
+{
+  "creation_date": "2025-05-16 16:21:19",
+  "features_used_in_preprocessor": [
+    "rating",
+    "log_size_mb",
+    "log_installs",
+    "log_reviews",
+    "price_numeric",
+    "is_free",
+    "has_iap",
+    "days_since_update",
+    "app_age_days",
+    "is_mature",
+    "developer_apps_count",
+    "avg_sentiment",
+    "category",
+    "store",
+    "rating_reviews_interaction",
+    "installs_sentiment_interaction",
+    "category_popularity",
+    "age_update_ratio"
+  ],
+  "all_preprocessed_feature_names": [
+    "rating",
+    "log_size_mb",
+    "log_installs",
+    "log_reviews",
+    "price_numeric",
+    "is_free",
+    "has_iap",
+    "days_since_update",
+    "app_age_days",
+    "is_mature",
+    "developer_apps_count",
+    "avg_sentiment",
+    "rating_reviews_interaction",
+    "installs_sentiment_interaction",
+    "category_popularity",
+    "age_update_ratio",
+    "category_Action",
+    "category_Adventure",
+    "category_Arcade",
+    "category_Art & Design",
+    "category_Books & Reference",
+    "category_Business",
+    "category_Card",
+    "category_Casual",
+    "category_Communication",
+    "category_Education",
+    "category_Educational",
+    "category_Entertainment",
+    "category_Finance",
+    "category_Health & Fitness",
+    "category_Lifestyle",
+    "category_Medical",
+    "category_Music & Audio",
+    "category_News & Magazines",
+    "category_Photography",
+    "category_Productivity",
+    "category_Puzzle",
+    "category_Racing",
+    "category_Shopping",
+    "category_Social",
+    "category_Sports",
+    "category_Strategy",
+    "category_Tools",
+    "category_Word",
+    "store_google"
+  ],
+  "categorical_features_to_ohe": [
+    "category",
+    "store"
+  ],
+  "numerical_features_to_scale": [
+    "rating",
+    "log_size_mb",
+    "log_installs",
+    "log_reviews",
+    "price_numeric",
+    "is_free",
+    "has_iap",
+    "days_since_update",
+    "app_age_days",
+    "is_mature",
+    "developer_apps_count",
+    "avg_sentiment",
+    "rating_reviews_interaction",
+    "installs_sentiment_interaction",
+    "category_popularity",
+    "age_update_ratio"
+  ],
+  "dataset_size_X": 232,
+  "best_model_on_validation": {
+    "name": "Random Forest",
+    "test_rmse_days": 320.98992826753613,
+    "test_r2": 0.9743286381507125
+  },
+  "validation_performances": [
+    {
+      "Model": "Random Forest",
+      "RMSE": 0.015212092687435454,
+      "R\u00b2": 0.9986706825112629
+    },
+    {
+      "Model": "XGBoost",
+      "RMSE": 0.02431970119965705,
+      "R\u00b2": 0.9966024390055914
+    },
+    {
+      "Model": "Combined Model",
+      "RMSE": 0.04520140709096655,
+      "R\u00b2": 0.9882630649498234
+    },
+    {
+      "Model": "Neural Network",
+      "RMSE": 0.4010008897731029,
+      "R\u00b2": 0.0762776214828369
+    },
+    {
+      "Model": "Bidirectional LSTM",
+      "RMSE": 0.7614365164428113,
+      "R\u00b2": -2.3305671466159272
+    }
+  ]
+}

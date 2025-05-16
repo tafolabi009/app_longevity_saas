@@ -1,0 +1,233 @@
+app_id,title,category,rating,reviews,size,installs,price,content_rating,days_since_update,app_age_days,developer_apps_count,avg_sentiment,free,IAP,store,estimated_longevity_days
+com.wonder,Elevate - Brain Training Games,Education,4.6100273,49157,0,"10,000,000+",0,Everyone,20204,3999,1,4.12,True,True,google,1913.5386329197302
+com.duolingo,Duolingo: Language Lessons,Education,4.6736584,861362,0,"500,000,000+",0,Everyone,20204,4370,1,1.32,True,True,google,2082.5555708275983
+com.google.android.apps.classroom,Google Classroom,Education,2.547977,39163,0,"100,000,000+",0,Everyone,20204,3775,1,3.48,True,False,google,1711.2242268623547
+org.coursera.android,Coursera: Grow your career,Education,4.706007,5389,0,"10,000,000+",0,Everyone,20204,4068,1,3.24,True,True,google,1933.0585714269291
+org.khankids.android,Khan Academy Kids,Education,4.6676736,6023,0,"5,000,000+",0,Everyone,20204,2502,1,4.54,True,False,google,1305.2558044603893
+air.com.starfall.more,Starfall,Education,4.020535,6061,0,"5,000,000+",0,Everyone,20204,4262,1,4.3,True,True,google,1974.3480497892176
+org.khanacademy.android,Khan Academy,Education,4.2312303,9157,0,"10,000,000+",0,Everyone,20204,3524,1,3.9,True,False,google,1693.0011242028133
+com.mathbuddyai,Math Buddy,Education,0.0,0,0,"5,000+",0,Everyone,20204,28,1,3.923076923076923,True,True,google,30.0
+com.unitedassociates.apps.ella,Ella School - English Learning,Education,0.0,0,0,"5,000+",0,Everyone,20204,39,1,0.0,True,True,google,30.0
+com.memrise.android.memrisecompanion,Memrise: Languages for life,Education,4.4779315,66878,0,"10,000,000+",0,Everyone,20204,4379,1,4.2,True,True,google,2060.2525322164734
+com.classdojo.android,ClassDojo,Education,4.799922,79649,0,"10,000,000+",0,Everyone,20204,4463,1,4.54,True,True,google,2112.28856133554
+com.quizlet.quizletandroid,Quizlet: Study with Flashcards,Education,4.6862936,56954,0,"10,000,000+",0,Everyone,20204,4287,1,4.4,True,True,google,2033.740344411515
+com.ixl.ixlmath,IXL,Education,4.169312,7847,0,"5,000,000+",0,Everyone,20204,3947,1,3.16,True,False,google,1857.9313214509823
+com.moodle.moodlemobile,Moodle,Education,4.539952,1389,0,"10,000,000+",0,Everyone,20204,4454,1,4.48,True,False,google,2070.3601516002595
+com.alison.mobile.flutter,Alison: Online Education App,Education,4.694286,2162,0,"5,000,000+",0,Everyone,20204,1653,1,4.68,True,True,google,960.9473419992293
+com.education.android.h.intelligence,Gauth: AI Study Companion,Education,4.767975,24446,0,"50,000,000+",0,Everyone,20204,1507,1,4.58,True,True,google,921.076616171441
+com.udemy.android,Udemy - Online Courses,Education,4.4925604,14739,0,"10,000,000+",0,Everyone,20204,4140,1,3.3,True,True,google,1956.368572037971
+no.mobitroll.kahoot.android,Kahoot! Play & Create Quizzes,Education,4.7274523,15341,0,"50,000,000+",0,Everyone,20204,4579,1,4.0,True,True,google,2144.8929103106266
+com.microblink.photomath,Photomath,Education,4.360978,74614,0,"100,000,000+",0,Everyone,20204,3732,1,4.08,True,True,google,1795.7937824737044
+com.rvappstudios.baby.toddler.kids.games.learning.activity,Kids Games: For Toddlers 3-5,Educational,4.523585,243,0,"50,000,000+",0,Everyone,20204,1179,1,4.86,True,False,google,749.03698879527
+com.paperboatapps.google.kiddopia,Kiddopia - Kids Learning Games,Education,3.7961671,1063,0,"5,000,000+",0,Everyone,20204,2516,1,2.56,True,True,google,1253.3921568629205
+com.getmimo,Learn Coding/Programming: Mimo,Education,4.711628,19269,0,"10,000,000+",0,Everyone,20204,2523,1,4.54,True,True,google,1323.0061300119612
+com.adaptedmind.mobile,AdaptedMind Math,Education,4.357798,167,0,"100,000+",0,Everyone,20204,353,1,3.08,True,True,google,407.4452653199305
+co.brainly,Brainly: AI Homework Helper,Education,4.5199127,17890,0,"100,000,000+",0,Everyone,20204,3523,1,4.2,True,True,google,1712.20799367605
+com.storytoys.hungry.caterpillar.play.school.abc.kids.books.free.android.googleplay,Hungry Caterpillar Play School,Education,4.02,150,0,"500,000+",0,Everyone,20204,2556,1,3.18,True,True,google,1269.7640684644005
+com.duolingo.literacy,Learn to Read - Duolingo ABC,Education,4.1732674,806,0,"10,000,000+",0,Everyone,20204,1096,1,4.34,True,False,google,704.0967710531306
+com.JindoBlu.OfflineGames,Offline Games - No Wifi Games,Casual,4.6629686,8682,0,"100,000,000+",0,Everyone,20204,651,1,4.44,True,True,google,566.7954280638749
+com.innersloth.spacemafia,Among Us,Action,3.8797925,524302,0,"500,000,000+",0,Everyone 10+,20204,2527,1,3.96,True,True,google,1299.5081346862662
+com.vincentb.MobControl,Mob Control,Arcade,4.167271,34647,0,"100,000,000+",0,Everyone,20204,1478,1,3.46,True,True,google,879.1309951408778
+com.imangi.templerun2,Temple Run 2: Endless Escape,Action,4.141767,384513,0,"1,000,000,000+",0,Everyone 10+,20204,4496,1,4.22,True,True,google,2099.3942203126408
+com.kiloo.subwaysurf,Subway Surfers,Arcade,4.55843,1791699,0,"1,000,000,000+",0,Everyone 10+,20204,4621,1,4.54,True,True,google,2181.127662130239
+com.ea.game.pvzfree_row,Plants vs. Zombies™,Strategy,3.9626517,116281,0,"500,000,000+",0,Everyone 10+,20204,3837,1,3.42,True,True,google,1818.9462225698348
+com.rovio.baba,Angry Birds 2,Casual,4.1868386,269876,0,"100,000,000+",0,Everyone,20204,3585,1,3.42,True,True,google,1735.3040033152788
+com.rvappstudios.kids.coloring.book.color.painting,Coloring Games: Color & Paint,Educational,4.537864,894,0,"100,000,000+",0,Everyone,20204,2018,1,4.44,True,False,google,1093.2059877531601
+com.miniclip.eightballpool,8 Ball Pool,Sports,4.7287254,974737,0,"1,000,000,000+",0,Everyone,20204,4496,1,3.86,True,True,google,2136.671105019032
+com.os.airforce,1945 Air Force: Airplane Games,Arcade,4.800427,47420,0,"100,000,000+",0,Everyone 10+,20204,2264,1,3.82,True,True,google,1229.6043701287838
+com.king.candycrushsaga,Candy Crush Saga,Casual,4.616929,2105951,0,"1,000,000,000+",0,Everyone,20204,4565,1,4.6,True,True,google,2162.8562245198723
+com.gameloft.android.ANMP.GloftA8HM,Asphalt 8 - Car Racing Game,Racing,4.52783,287184,0,"500,000,000+",0,Everyone 10+,20204,4287,1,4.38,True,True,google,2034.890500761791
+com.nintendo.zaka,Mario Kart Tour,Action,4.3150907,218429,0,"100,000,000+",0,Everyone,20204,2061,1,3.96,True,True,google,1131.360612499852
+com.halfbrick.fruitninjafree,Fruit Ninja®,Arcade,4.5230865,221244,0,"500,000,000+",0,Everyone,20204,5049,1,4.26,True,True,google,2337.86921622598
+com.google.android.play.games,Google Play Games,Entertainment,4.0644794,200771,0,"5,000,000,000+",0,Teen,20204,4314,1,3.52,True,True,google,2018.5218283325848
+com.nintendo.zara,Super Mario Run,Action,3.9111638,90645,0,"100,000,000+",0,Everyone,20204,2977,1,3.32,True,True,google,1470.6715371802168
+com.fungames.sniper3d,Sniper 3D：Gun Shooting Games,Action,4.5536003,445258,0,"500,000,000+",0,Mature 17+,20204,3837,1,4.3,True,True,google,1858.9132741293765
+com.dreamgames.royalmatch,Royal Match,Puzzle,4.6421027,85562,0,"100,000,000+",0,Everyone,20204,1541,1,4.36,True,True,google,935.3959845976825
+com.fingersoft.hcr2,Hill Climb Racing 2,Racing,4.483886,145351,0,"100,000,000+",0,Everyone,20204,3092,1,3.64,True,True,google,1550.4317154382047
+com.sega.sonicdash,Sonic Dash Endless Runner Game,Arcade,4.665358,415321,0,"100,000,000+",0,Everyone,20204,4189,1,4.82,True,True,google,2005.3305778553292
+com.roblox.client,Roblox,Adventure,4.4591146,3507510,0,"1,000,000,000+",0,Teen,20204,3958,1,3.76,True,True,google,1914.595081206055
+com.yodo1.crossyroad,Crossy Road,Action,4.451524,350791,0,"100,000,000+",0,Everyone,20204,3782,1,4.36,True,True,google,1829.9703778487292
+com.dts.freefireth,Free Fire,Action,4.2198353,638375,0,"1,000,000,000+",0,Mature 17+,20204,2717,1,4.46,True,True,google,1395.0515920260675
+com.ea.gp.fifamobile,EA SPORTS FC™ Mobile Soccer,Sports,4.593997,222349,0,"500,000,000+",0,Everyone,20204,3140,1,4.5,True,True,google,1578.1282754191438
+com.matteljv.uno,UNO!™,Card,4.4101934,65799,0,"100,000,000+",0,Everyone,20204,2375,1,3.76,True,True,google,1254.8970837473914
+com.tocaboca.tocalifeworld,Toca Boca World,Educational,4.2843766,200401,0,"100,000,000+",0,Everyone,20204,2368,1,4.04,True,True,google,1251.9852096126087
+com.block.juggle,Block Blast!,Puzzle,4.814069,43286,0,"100,000,000+",0,Everyone,20204,966,1,4.2,True,True,google,710.593761271303
+com.zeptolab.ctr.ads,Cut the Rope,Puzzle,4.4891057,96340,0,"100,000,000+",0,Everyone,20204,4798,1,4.02,True,True,google,2230.64599280372
+in.playsimple.wordsearch,Word Search Explorer,Word,4.9179606,17111,0,"10,000,000+",0,Everyone,20204,1274,1,4.44,True,True,google,833.8354733480844
+com.fgol.HungrySharkEvolution,Hungry Shark Evolution,Arcade,4.4845605,247083,0,"500,000,000+",0,Teen,20204,4466,1,4.48,True,True,google,2103.2515582761152
+com.kitkagames.fallbuddies,Stumble Guys,Action,4.233173,69375,0,"100,000,000+",0,Everyone,20204,1695,1,3.6,True,True,google,973.6555090356665
+com.playrix.fishdomdd.gplay,Fishdom,Puzzle,4.578087,292040,0,"100,000,000+",0,Everyone,20204,3362,1,3.86,True,True,google,1667.7049843376267
+com.firsttouchgames.dls7,Dream League Soccer 2025,Sports,4.4403243,84543,0,"100,000,000+",0,Everyone,20204,1949,1,4.26,True,True,google,1087.6280659708027
+com.openai.chatgpt,ChatGPT,Productivity,4.7725763,72092,0,"100,000,000+",0,Teen,20204,665,1,4.4,True,True,google,591.0137830305974
+com.google.android.apps.bard,Google Gemini,Productivity,4.3534927,49326,0,"100,000,000+",0,Teen,20204,466,1,4.1,True,False,google,486.50635650826223
+com.todoist,Todoist: Planner & Calendar,Productivity,4.545659,16297,0,"10,000,000+",0,Everyone,20204,4562,1,3.56,True,True,google,2128.6387615227923
+com.google.android.calendar,Google Calendar,Productivity,4.5583186,93678,0,"5,000,000,000+",0,Everyone,20204,4594,1,3.64,True,False,google,2152.6153697849763
+com.google.android.apps.docs,Google Drive,Productivity,4.3036904,177718,0,"10,000,000,000+",0,Everyone,20204,5133,1,3.9,True,True,google,2358.307424624743
+com.boostedproductivity.app,Boosted Time Tracker,Productivity,4.537931,1074,0,"1,000,000+",0,Everyone,20205,2349,1,4.12,True,True,google,1226.7091101721576
+com.google.android.apps.tasks,Google Tasks,Productivity,4.5916533,24064,0,"10,000,000+",0,Everyone,20204,2579,1,3.86,True,False,google,1340.2607503339343
+cc.forestapp,Forest: Focus for Productivity,Productivity,4.5225353,9652,0,"10,000,000+",0,Everyone,20204,3917,1,3.24,True,True,google,1866.247439804603
+com.adobe.reader,Adobe Acrobat Reader: Edit PDF,Productivity,4.511439,143687,0,"500,000,000+",0,Everyone,20204,5471,1,3.8,True,True,google,2503.450492811151
+com.microsoft.office.officehubrow,Microsoft 365 Copilot,Productivity,4.6666937,44926,0,"1,000,000,000+",0,Everyone,20204,1916,1,4.24,True,True,google,1082.858614619329
+ai.x.grok,Grok - AI Assistant,Productivity,4.9207683,8533,0,"10,000,000+",0,Teen,20204,53,1,4.6,True,True,google,341.4127584259986
+com.google.android.apps.docs.editors.docs,Google Docs,Productivity,4.1541,72601,0,"1,000,000,000+",0,Everyone,20204,4034,1,3.84,True,False,google,1905.258275935368
+com.superelement.pomodoro,Focus To-Do: Pomodoro & Tasks,Productivity,4.5472746,3192,0,"5,000,000+",0,Everyone,20204,2661,1,4.06,True,True,google,1358.5455149997997
+com.microsoft.todos,Microsoft To Do: Lists & Tasks,Productivity,4.657595,12942,0,"10,000,000+",0,Everyone,20204,2949,1,4.16,True,False,google,1488.1003817261656
+com.google.android.keep,Google Keep - Notes and lists,Productivity,4.8233767,54137,0,"1,000,000,000+",0,Everyone,20204,4440,1,4.42,True,False,google,2102.0384809708466
+com.microsoft.office.word,Microsoft Word: Edit Documents,Productivity,4.7661037,113081,0,"1,000,000,000+",0,Everyone,20204,3783,1,4.08,True,True,google,1840.5652002329791
+com.google.android.apps.docs.editors.sheets,Google Sheets,Productivity,4.167527,22704,0,"1,000,000,000+",0,Everyone,20204,4034,1,4.2,True,False,google,1899.0088901047034
+com.google.android.apps.docs.editors.slides,Google Slides,Productivity,4.0290427,22678,0,"1,000,000,000+",0,Everyone,20204,3978,1,3.96,True,False,google,1869.1238632344641
+com.microsoft.office.excel,Microsoft Excel: Spreadsheets,Productivity,4.779338,46832,0,"1,000,000,000+",0,Everyone,20204,3783,1,4.32,True,True,google,1835.9907016132595
+ai.perplexity.app.android,Perplexity - Ask Anything,Productivity,4.6707044,5411,0,"10,000,000+",0,Teen,20204,723,1,4.12,True,True,google,593.1766709792549
+com.intsig.camscanner,"CamScanner- scanner, PDF maker",Productivity,4.7263474,149977,0,"100,000,000+",0,Everyone,20204,5312,1,4.56,True,True,google,2451.712612417442
+notion.id,"Notion: Notes, Tasks, AI",Productivity,4.713871,3901,0,"10,000,000+",0,Everyone,20204,2537,1,4.08,True,True,google,1319.1448905706093
+com.samsung.android.app.notes,Samsung Notes,Productivity,4.780586,86361,0,"1,000,000,000+",0,Everyone,20204,3196,1,4.68,True,False,google,1604.9298517028935
+cn.wps.moffice_eng,"WPS Office-PDF,Word,Sheet,PPT",Productivity,4.618367,60259,0,"500,000,000+",0,Everyone,20204,5048,1,4.46,True,True,google,2334.8107503196165
+com.dropbox.android,Dropbox: Secure Cloud Storage,Productivity,4.368744,86453,0,"1,000,000,000+",0,Everyone,20204,5491,1,3.04,True,True,google,2500.696772000877
+com.microsoft.office.powerpoint,Microsoft PowerPoint,Productivity,4.7557583,18308,0,"1,000,000,000+",0,Everyone,20204,3783,1,4.4,True,True,google,1829.0822257707866
+com.google.android.apps.wellbeing,Digital Wellbeing,Tools,3.6149917,17319,0,"5,000,000,000+",0,Everyone,20204,2473,1,3.16,True,False,google,1243.1476443362094
+com.microsoft.office.onenote,Microsoft OneNote: Save Notes,Productivity,4.667726,51858,0,"500,000,000+",0,Everyone,20204,4847,1,4.22,True,False,google,2256.175296100847
+com.microsoft.copilot,​​Microsoft Copilot,Productivity,4.701238,14532,0,"10,000,000+",0,Everyone,20204,514,1,4.0,True,True,google,517.1523046712679
+com.adpmobile.android,ADP Mobile Solutions,Business,4.5613446,78363,0,"10,000,000+",0,Everyone,20204,4428,1,2.3,True,False,google,2085.3077173467586
+com.socialnmobile.dictapps.notepad.color.note,ColorNote Notepad Notes,Productivity,4.8805876,254561,0,"100,000,000+",0,Everyone,20204,20204,1,4.68,True,False,google,8420.015918044919
+com.deepseek.chat,DeepSeek - AI Assistant,Productivity,4.226852,4328,0,"10,000,000+",0,Teen,20204,128,1,3.74,True,False,google,329.8689485281628
+org.readera,ReadEra – book reader pdf epub,Books & Reference,4.8551393,18000,0,"10,000,000+",0,Everyone,20204,2968,1,4.62,True,False,google,1508.347007188855
+com.sec.android.app.shealth,Samsung Health,Health & Fitness,3.6157427,74687,0,"1,000,000,000+",0,Everyone,20204,3692,1,2.66,True,False,google,1739.5569435373884
+com.google.android.apps.fitness,Google Fit: Activity Tracking,Health & Fitness,3.6207,28694,0,"100,000,000+",0,Everyone,20204,3853,1,2.54,True,False,google,1798.4850584667658
+com.google.android.apps.healthdata,Health Connect,Health & Fitness,3.0842824,2029,0,"500,000,000+",0,Everyone,20204,918,1,2.86,True,False,google,579.6263854757259
+com.fitbit.FitbitMobile,Fitbit,Health & Fitness,4.061333,238774,0,"100,000,000+",0,Everyone,20204,4809,1,2.42,True,True,google,2217.392033232929
+com.transsion.healthlife,My Health,Health & Fitness,4.3267326,69,0,"100,000,000+",0,Everyone,20204,1276,1,3.4,True,False,google,769.7149212958071
+com.myfitnesspal.android,MyFitnessPal: Calorie Counter,Health & Fitness,4.36417,452194,0,"100,000,000+",0,Everyone,20204,5499,1,3.2,True,True,google,2513.576782133774
+com.bearable,"Symptom, Mood & Period Tracker",Health & Fitness,4.6226416,1342,0,"500,000+",0,Everyone,20204,1891,1,4.54,True,True,google,1049.4190030226505
+com.anthem.sydney,Sydney Health,Medical,4.6785817,5794,0,"1,000,000+",0,Everyone,20204,2086,1,2.72,True,False,google,1139.2123057781541
+com.empiricalhealth.EmpiricalHealth,Empirical Health,Medical,3.7333333,6,0,"5,000+",0,Everyone,20204,87,1,4.0,True,True,google,248.2558485378428
+com.getsomeheadspace.android,Headspace: Meditation & Health,Health & Fitness,4.4454093,31054,0,"10,000,000+",0,Everyone,20204,4879,1,3.08,True,True,google,2253.8935822734716
+com.functionhealth,Function Health,Health & Fitness,0.0,0,0,"1,000+",0,Everyone,20204,36,1,4.0,True,False,google,30.0
+com.innodiets.cardi,Cardi Health: Heart Monitoring,Health & Fitness,3.58,179,0,"50,000+",0,Everyone,20204,1269,1,2.14,True,True,google,732.2581305488523
+nl.appyhapps.healthsync,Health Sync,Health & Fitness,4.4138927,2770,0,"1,000,000+",0,Everyone,20204,3305,1,4.04,True,True,google,1608.0923765126886
+homeworkout.homeworkouts.noequipment,Home Workout - No Equipment,Health & Fitness,4.8739014,63297,0,"100,000,000+",0,Everyone,20204,2746,1,4.78,True,True,google,1428.10471911585
+com.finch.finch,Finch: Self-Care Pet,Health & Fitness,4.9270406,42080,0,"5,000,000+",0,Everyone,20204,1466,1,4.44,True,True,google,916.5246915118375
+com.strava,"Strava: Run, Bike, Hike",Health & Fitness,4.3729415,32379,0,"50,000,000+",0,Teen,20204,5090,1,3.28,True,True,google,2334.631007806901
+com.sillens.shapeupclub,Lifesum: AI Calorie Tracker,Health & Fitness,4.3492794,13673,0,"10,000,000+",0,Everyone,20204,5083,1,2.48,True,True,google,2325.3809860343536
+com.teladoc.members,Teladoc Health,Medical,4.378427,31022,0,"5,000,000+",0,Everyone,20204,4246,1,3.9,True,False,google,1997.0703523066295
+com.calm.android,"Calm - Sleep, Meditate, Relax",Health & Fitness,4.442418,62448,0,"50,000,000+",0,Everyone,20204,3943,1,3.24,True,True,google,1883.5235944592025
+com.garmin.android.apps.connectmobile,Garmin Connect™,Health & Fitness,3.9912934,51435,0,"10,000,000+",0,Everyone,20204,4510,1,3.62,True,False,google,2084.7987946158532
+com.fitnow.loseit,Calorie Counter by Lose It!,Health & Fitness,4.7231417,42268,0,"10,000,000+",0,Everyone,20204,5045,1,3.6,True,True,google,2337.1408966585554
+com.alltrails.alltrails,"AllTrails: Hike, Bike & Run",Health & Fitness,4.756433,22669,0,"10,000,000+",0,Everyone,20204,4994,1,3.96,True,True,google,2314.8005579045207
+com.huami.watch.hmwatchmanager,Zepp,Sports,4.1240945,26449,0,"10,000,000+",0,Everyone,20204,3076,1,3.62,True,True,google,1514.3795610672296
+pedometer.steptracker.calorieburner.stepcounter,Step Counter - Pedometer,Health & Fitness,4.8617,31828,0,"50,000,000+",0,Everyone,20204,2849,1,4.54,True,True,google,1464.520988060793
+com.wsl.noom,Noom: Weight Loss & Health,Health & Fitness,4.174486,88641,0,"10,000,000+",0,Everyone,20204,5174,1,3.16,True,True,google,2363.5567998329316
+com.weightwatchers.mobile,WeightWatchers Program,Health & Fitness,4.5093684,115263,0,"10,000,000+",0,Everyone,20204,5148,1,3.7,True,True,google,2372.8161656147254
+com.nike.plusgps,Nike Run Club - Running Coach,Health & Fitness,4.0764356,68811,0,"50,000,000+",0,Everyone,20204,4712,1,4.02,True,False,google,2171.942712407413
+com.hevy,Hevy - Gym Log Workout Tracker,Health & Fitness,4.8708544,4128,0,"1,000,000+",0,Teen,20204,2148,1,4.84,True,True,google,1172.3612701988275
+com.spotlightsix.zentimerlite2,Insight Timer - Meditation App,Health & Fitness,4.746636,19535,0,"10,000,000+",0,Everyone,20204,5266,1,2.86,True,True,google,2422.178818621614
+steptracker.healthandfitness.walkingtracker.pedometer,Step Tracker - Pedometer,Health & Fitness,4.7967587,21487,0,"10,000,000+",0,Everyone,20204,2101,1,4.66,True,True,google,1159.456858756089
+com.fusionmedia.investing,Investing.com: Stock Market,Finance,4.694863,10919,0,"50,000,000+",0,Everyone,20204,4264,1,4.2,True,True,google,2015.0930989393044
+com.google.android.apps.walletnfcrel,Google Wallet,Finance,4.513366,113110,0,"1,000,000,000+",0,Everyone,20204,5075,1,2.96,True,False,google,2343.718902942137
+com.mexcpro.client,MEXC: Buy Bitcoin BTC & Crypto,Finance,4.665663,1286,0,"5,000,000+",0,Everyone,20204,1758,1,4.38,True,False,google,998.2866066890876
+com.paypal.android.p2pmobile,"PayPal - Pay, Send, Save",Finance,4.2528424,417500,0,"100,000,000+",0,Everyone,20204,20204,1,3.86,True,False,google,8389.086132354389
+com.squareup.cash,Cash App,Finance,4.6337566,423987,0,"100,000,000+",0,Everyone,20204,4231,1,4.16,True,True,google,2020.5480084350718
+com.truebill,Rocket Money - Bills & Budgets,Finance,4.660002,33718,0,"10,000,000+",0,Everyone,20204,3228,1,4.16,True,True,google,1605.575397977624
+com.etoro.openbook,eToro: Trade. Invest. Connect.,Finance,3.835947,3592,0,"10,000,000+",0,Everyone,20204,3408,1,3.28,True,False,google,1619.641984166192
+com.nu.production,Nu,Finance,4.61125,1993,0,"100,000,000+",0,Everyone,20204,4039,1,3.54,True,False,google,1910.3752771466416
+com.fidelity.android,Fidelity Investments,Finance,4.5837812,53012,0,"5,000,000+",0,Everyone,20204,5266,1,2.44,True,False,google,2419.374328916368
+com.mercadopago.wallet,Mercado Pago: cuenta digital,Finance,4.780727,7344,0,"100,000,000+",0,Everyone,20204,3811,1,2.54,True,True,google,1836.1502979751588
+net.one97.paytm,Paytm: Secure UPI Payments,Finance,4.6718144,35721,0,"500,000,000+",0,Everyone,20204,4764,1,4.46,True,True,google,2220.9594991902977
+com.onefinance.one,OnePay – Mobile Banking,Finance,4.7657266,12105,0,"1,000,000+",0,Everyone,20204,1758,1,3.82,True,False,google,1017.1383647022208
+capital.cocos.app.twa,Cocos,Finance,4.076923,2,0,"1,000,000+",0,Mature 17+,20204,22,1,2.62,True,False,google,235.72590517551959
+com.taurex.app,Taurex: Mobile Trading Broker,Finance,0.0,0,0,"50,000+",0,Everyone,20204,73,1,3.6666666666666665,True,False,google,30.0
+com.revolut.revolut,"Revolut: Spend, Save, Trade",Finance,4.5220833,10462,0,"50,000,000+",0,Everyone,20204,3637,1,4.3,True,False,google,1754.7064906637975
+org.altruist.BajajExperia,"Bajaj Finserv: Loans, UPI & FD",Finance,4.8806453,2022,0,"100,000,000+",0,Everyone,20204,4623,1,4.92,True,True,google,2158.6092566665175
+com.chase.sig.android,Chase Mobile,Finance,4.418748,635671,0,"50,000,000+",0,Everyone,20204,5292,1,3.84,True,False,google,2435.767409359636
+com.acorns.android,Acorns: Invest For Your Future,Finance,4.672202,75608,0,"10,000,000+",0,Everyone,20204,3874,1,3.74,True,False,google,1869.4792810597173
+id.dana,DANA Indonesia Digital Wallet,Finance,4.4833174,3250,0,"100,000,000+",0,Everyone,20204,2201,1,2.72,True,False,google,1171.1998365653344
+com.tradingview.tradingviewapp,TradingView: Track All Markets,Finance,4.735888,10756,0,"10,000,000+",0,Everyone,20204,2375,1,4.36,True,True,google,1261.618213350103
+com.myklarnamobile,Klarna | Shop now. Pay later.,Shopping,4.870153,43216,0,"50,000,000+",0,Everyone,20204,2388,1,1.92,True,False,google,1282.4125867355667
+org.dayup.stocks,Webull: Investing & Trading,Finance,4.501963,40578,0,"10,000,000+",0,Everyone,20204,20204,1,3.3,True,True,google,8388.552427265882
+com.venmo,Venmo,Finance,4.1482296,321794,0,"50,000,000+",0,Everyone,20204,5478,1,3.48,True,False,google,2491.474807698424
+com.everydollar.android,EveryDollar: Budget Planning,Finance,4.4157133,6222,0,"1,000,000+",0,Everyone,20204,3232,1,3.64,True,True,google,1583.8449519509265
+com.realbyteapps.moneymanagerfree,Money Manager Expense & Budget,Finance,4.6251235,5677,0,"10,000,000+",0,Everyone,20204,4455,1,4.64,True,True,google,2083.8031844657085
+pk.com.telenor.phoenix,easypaisa – a digital bank,Finance,4.570406,2477,0,"50,000,000+",0,Everyone,20204,3283,1,2.66,True,False,google,1607.0735558166455
+com.phonepe.app,"PhonePe UPI, Payment, Recharge",Finance,4.3593025,4542,0,"500,000,000+",0,Everyone,20204,3136,1,4.66,True,True,google,1540.5107816380673
+com.konylabs.capitalone,Capital One Mobile,Finance,4.506229,626267,0,"10,000,000+",0,Everyone,20204,5040,1,4.12,True,False,google,2339.60195748441
+app.phantom,Phantom,Finance,4.7228913,1365,0,"10,000,000+",0,Everyone,20204,1130,1,4.54,True,False,google,750.5343718842953
+com.google.android.apps.photos,Google Photos,Photography,4.441109,1317029,0,"10,000,000,000+",0,Everyone,20204,3641,1,4.48,True,False,google,1780.9456140005666
+com.google.android.apps.photosgo,Gallery,Photography,4.380372,6337,0,"1,000,000,000+",0,Everyone,20204,2124,1,3.66,True,False,google,1138.846388685016
+com.picsart.studio,"Picsart AI Photo Editor, Video",Photography,4.0754185,456739,0,"1,000,000,000+",0,Teen,20204,4942,1,3.8,True,True,google,2275.244205924625
+photoeditor.layout.collagemaker,Collage Maker | Photo Editor,Photography,4.8942866,40060,0,"100,000,000+",0,Everyone,20204,3126,1,4.9,True,True,google,1578.4608172722974
+photo.editor.photoeditor.photoeditorpro,AI Photo Editor - Polish,Photography,4.827048,77113,0,"100,000,000+",0,Everyone,20204,2580,1,4.78,True,True,google,1360.3592221960782
+com.google.android.GoogleCamera,Pixel Camera,Photography,2.8927376,39348,0,1+,0,Everyone,20204,4048,1,2.24,True,False,google,1839.069574886883
+vsin.t16_funny_photo,Photo Lab Picture Editor & Art,Photography,4.4779787,104479,0,"100,000,000+",0,Teen,20204,5252,1,4.08,True,True,google,2412.131744910573
+gallery.photomanager.picturegalleryapp.imagegallery,"Gallery - photo gallery, album",Photography,4.7334313,12625,0,"10,000,000+",0,Everyone,20204,1923,1,4.78,True,True,google,1081.6467603970762
+com.canva.editor,Canva: AI Photo & Video Editor,Art & Design,4.806682,92153,0,"500,000,000+",0,Everyone 10+,20204,2727,1,4.26,True,True,google,1419.1285156613728
+com.photoroom.app,Photoroom AI Photo Editor,Photography,4.696576,14884,0,"100,000,000+",0,Everyone,20204,1612,1,4.4,True,True,google,956.2441490842102
+com.adobe.psmobile,Photoshop Express Photo Editor,Photography,4.5429235,58006,0,"100,000,000+",0,Everyone,20204,20204,1,4.26,True,True,google,8392.90817227492
+com.bigwinepot.nwdn.international,Remini - AI Photo Enhancer,Photography,4.1776733,21318,0,"100,000,000+",0,Everyone,20204,2126,1,3.9,True,True,google,1135.9788714806982
+com.adobe.lrmobile,Lightroom Photo & Video Editor,Photography,4.5808797,15337,0,"100,000,000+",0,Everyone,20204,3775,1,4.16,True,True,google,1815.3764253734596
+com.niksoftware.snapseed,Snapseed,Photography,4.065713,19781,0,"100,000,000+",0,Everyone,20204,4544,1,4.5,True,False,google,2096.6840577173098
+com.vsco.cam,VSCO: Photo & Video Editor,Photography,3.453991,19883,0,"100,000,000+",0,Teen,20204,4182,1,2.32,True,True,google,1918.8819274467983
+com.cardinalblue.piccollage.google,PicCollage: Photo Grid Editor,Photography,4.765775,132794,0,"100,000,000+",0,Everyone,20204,4726,1,4.4,True,True,google,2218.711610631791
+com.cyberlink.youperfect,YouCam Perfect - Photo Editor,Photography,4.0862365,39362,0,"100,000,000+",0,Teen,20204,4096,1,4.02,True,True,google,1922.720649850154
+com.everimaging.photoeffectstudio,Fotor - AI Photo Editor,Photography,4.1989403,20296,0,"10,000,000+",0,Everyone,20204,4431,1,3.22,True,True,google,2058.832535868657
+photo.editor.photoeditor.filtersforpictures,Photo Editor - Lumii,Photography,4.7830606,22903,0,"50,000,000+",0,Everyone,20204,2420,1,4.64,True,True,google,1286.7000629241786
+com.vicman.toonmeapp,ToonMe photo cartoon maker,Photography,4.4898953,10433,0,"100,000,000+",0,Everyone,20204,1653,1,4.44,True,True,google,959.3516855450049
+com.kvadgroup.photostudio,Photo Studio: pictures editor!,Photography,4.692281,32470,0,"50,000,000+",0,Everyone,20204,4762,1,4.28,True,True,google,2220.6921794172035
+photocollage.photoeditor.collagemaker,Photo Editor - Collage Maker,Photography,4.8899107,20974,0,"50,000,000+",0,Everyone,20204,2914,1,4.88,True,True,google,1489.5420864315233
+com.xt.retouchoversea,Hypic - Photo Editor & AI Art,Photography,4.5616436,990,0,"10,000,000+",0,Everyone,20204,864,1,4.66,True,True,google,633.5014310494909
+io.faceapp,FaceApp: Perfect Face Editor,Photography,4.301146,75380,0,"500,000,000+",0,Everyone,20204,3013,1,4.26,True,True,google,1505.0241366406196
+com.linecorp.b612.android,B612 AI Photo&Video Editor,Photography,4.1321454,20413,0,"500,000,000+",0,Everyone,20204,3872,1,3.86,True,True,google,1831.6600983572916
+com.amazon.clouddrive.photos,Amazon Photos: Photo & Video,Photography,4.699802,126392,0,"50,000,000+",0,Everyone,20204,4578,1,4.6,True,True,google,2155.6526057199985
+com.kii.safe,Private Photo Vault - Keepsafe,Photography,4.7458143,221019,0,"50,000,000+",0,Everyone,20204,5096,1,4.22,True,True,google,2368.690412488368
+photo.gallery.photoeditor.photo.album,Gallery- Photo Gallery & Album,Photography,4.4883723,857,0,"10,000,000+",0,Everyone,20204,498,1,4.4,True,True,google,482.28011824043875
+com.adobe.spark.post,"Adobe Express: AI Photo, Video",Art & Design,4.5782204,8777,0,"50,000,000+",0,Everyone,20204,2524,1,4.02,True,True,google,1311.484314265
+ai.photo.enhancer.photoclear,UpFoto - AI Photo Enhancer,Photography,4.5984287,14658,0,"50,000,000+",0,Everyone,20204,1101,1,4.14,True,True,google,746.4523978052512
+com.google.android.apps.youtube.music,YouTube Music,Music & Audio,4.5320315,446771,0,"5,000,000,000+",0,Teen,20204,3473,1,4.32,True,True,google,1712.1689125016296
+com.spotify.music,Spotify: Music and Podcasts,Music & Audio,4.344441,1783844,0,"1,000,000,000+",0,Teen,20204,4007,1,3.34,True,True,google,1923.9458936731476
+com.apple.android.music,Apple Music,Music & Audio,4.5902915,51249,0,"100,000,000+",0,Teen,20204,3475,1,3.58,True,True,google,1703.122955825515
+com.audiomack,Audiomack: Music Downloader,Music & Audio,4.785788,191377,0,"100,000,000+",0,Teen,20204,3781,1,4.7,True,True,google,1843.984976296706
+com.soundcloud.android,SoundCloud: Play Music & Songs,Music & Audio,4.6636276,384966,0,"100,000,000+",0,Teen,20204,5260,1,3.48,True,True,google,2433.1817572153745
+com.sec.android.app.music,Samsung Music,Music & Audio,3.8333333,21753,0,"1,000,000,000+",0,Teen,20204,3376,1,3.68,True,True,google,1617.5057052094337
+com.amazon.mp3,Amazon Music: Songs & Podcasts,Music & Audio,3.5371754,482387,0,"100,000,000+",0,Teen,20204,20204,1,3.32,True,True,google,8351.306885334294
+com.pandora.android,Pandora - Music & Podcasts,Music & Audio,4.002755,869045,0,"100,000,000+",0,Teen,20204,20204,1,2.94,True,True,google,8379.980067467035
+com.shaiban.audioplayer.mplayer,Music Player - MP3 Player,Music & Audio,4.161359,45026,0,"100,000,000+",0,Everyone,20204,3319,1,3.04,True,True,google,1616.7838809764576
+com.bandlab.bandlab,BandLab – Music Making Studio,Music & Audio,4.674386,49459,0,"100,000,000+",0,Teen,20204,3630,1,3.64,True,True,google,1769.4507506899633
+musicplayer.musicapps.music.mp3player,Music Player & MP3 Player,Music & Audio,4.781024,49010,0,"100,000,000+",0,Everyone,20204,2898,1,4.78,True,True,google,1482.3544856936787
+com.mmm.trebelmusic,"TREBEL: Music, MP3 & Podcasts",Music & Audio,4.8155255,77993,0,"50,000,000+",0,Teen,20204,3087,1,4.7,True,True,google,1562.6050895213273
+com.clearchannel.iheartradio.controller,"iHeart: Music, Radio, Podcasts",Music & Audio,4.5832534,689735,0,"50,000,000+",0,Teen,20204,20204,1,4.36,True,True,google,8409.940458211498
+com.shazam.android,Shazam: Find Music & Concerts,Music & Audio,4.825763,161282,0,"500,000,000+",0,Teen,20204,20204,1,4.64,True,False,google,8414.317086632806
+com.dywx.larkplayer,Lark Player:Music Player & MP3,Music & Audio,4.5648417,26072,0,"100,000,000+",0,Everyone,20204,3248,1,4.7,True,True,google,1606.8937746941444
+com.mixvibes.remixlive,Remixlive - Make Music & Beats,Music & Audio,4.3883495,4557,0,"10,000,000+",0,Everyone,20204,3124,1,4.5,True,True,google,1537.2990977023449
+com.aspiro.tidal,TIDAL Music: HiFi sound,Music & Audio,4.0701914,58537,0,"10,000,000+",0,Teen,20204,3853,1,3.02,True,True,google,1827.035313413442
+com.magix.android.mmjam,Music Maker JAM: Beatmaker app,Music & Audio,4.525756,54224,0,"10,000,000+",0,Teen,20204,4274,1,4.58,True,True,google,2019.5765974576816
+deezer.android.app,Deezer: Music & Podcast Player,Music & Audio,4.270054,51529,0,"100,000,000+",0,Teen,20204,20204,1,3.14,True,True,google,8377.462822091444
+com.miui.player,Mi Music,Music & Audio,3.910923,10041,0,"1,000,000,000+",0,Everyone,20204,2182,1,3.1,True,True,google,1139.4574209030786
+musicplayer.playmusic.audioplayer,Music Player & MP3 - DDMusic,Music & Audio,4.6501274,11307,0,"100,000,000+",0,Everyone,20204,890,1,4.7,True,True,google,663.2868633563917
+mymusic.offlinemusicplayer.mp3player.playmusic,Offline Music Player: Play MP3,Music & Audio,4.6143093,3826,0,"10,000,000+",0,Teen,20204,1234,1,4.56,True,True,google,792.4521105560651
+in.krosbits.musicolet,Musicolet Music Player,Music & Audio,4.6627693,9443,0,"10,000,000+",0,Everyone,20204,3248,1,4.6,True,True,google,1606.0887410327432
+com.sirius,"SiriusXM: Music, Sports & News",Music & Audio,4.5295157,175910,0,"10,000,000+",0,Teen,20204,5260,1,3.94,True,True,google,2421.2406380293223
+media.music.musicplayer,Music Player - Audio Player,Music & Audio,4.5026536,37259,0,"100,000,000+",0,Everyone,20204,4306,1,4.46,True,True,google,2028.8777377084446
+com.starmakerinteractive.starmaker,StarMaker: Sing Karaoke Songs,Music & Audio,4.296706,38074,0,"500,000,000+",0,Teen,20204,4204,1,3.62,True,True,google,1977.0863925100912
+com.musicplayer.playermusic,Music Player - Audify Player,Music & Audio,4.4649253,19481,0,"50,000,000+",0,Everyone,20204,2381,1,4.22,True,True,google,1252.9498330914964
+com.media.music.mp3.musicplayer,Music player,Music & Audio,4.7360945,21436,0,"100,000,000+",0,Everyone,20204,2486,1,4.48,True,True,google,1310.1667345236378
+com.maxmpz.audioplayer,Poweramp: Music Player (Trial),Music & Audio,4.207867,73953,0,"50,000,000+",0,Everyone,20204,5310,1,4.28,True,True,google,2418.6723987871783
+com.Project100Pi.themusicplayer,Pi Music Player: Offline Music,Music & Audio,4.6973996,47003,0,"50,000,000+",0,Teen,20204,3441,1,4.4,True,True,google,1694.787895744234
+com.snapchat.android,Snapchat,Communication,4.0978503,1770412,0,"1,000,000,000+",0,Teen,20204,4582,1,3.1,True,True,google,2140.5846461075034
+com.instagram.android,Instagram,Social,3.949952,4585795,0,"5,000,000,000+",0,Teen,20204,4791,1,4.12,True,True,google,2221.908642992716
+com.reddit.frontpage,Reddit,Social,4.6477156,323968,0,"100,000,000+",0,Mature 17+,20204,3327,1,3.22,True,True,google,1658.0874505106185
+com.zhiliaoapp.musically,"TikTok - Videos, Shop & LIVE",Social,4.1191716,2221713,0,"1,000,000,000+",0,Teen,20204,3599,1,4.0,True,True,google,1749.8983930116683
+com.discord,"Discord - Talk, Play, Hang Out",Communication,4.2543454,305293,0,"500,000,000+",0,Teen,20204,3662,1,2.94,True,True,google,1770.489224197887
+com.facebook.katana,Facebook,Social,4.3666487,4317748,0,"10,000,000,000+",0,Teen,20204,20204,1,3.78,True,True,google,8409.248887801135
+com.twitter.android,X,News & Magazines,3.7665355,781468,0,"1,000,000,000+",0,Mature 17+,20204,5495,1,3.64,True,True,google,2482.986891008014
+com.truthsocial.android.app,Truth Social,Social,3.39899,8720,0,"1,000,000+",0,Teen,20204,947,1,2.52,True,True,google,616.9667845788728
+com.instagram.barcelona,Threads,Social,4.084349,25239,0,"100,000,000+",0,Teen,20204,746,1,3.32,True,False,google,579.9523473434417
+com.pinterest,Pinterest,Lifestyle,4.429974,692844,0,"1,000,000,000+",0,Teen,20204,4658,1,3.98,True,True,google,2183.2903549711004
+com.facebook.lite,Facebook Lite,Social,4.4681916,126625,0,"1,000,000,000+",0,Teen,20204,2619,1,4.12,True,True,google,1359.5566946766378
+xyz.blueskyweb.app,Bluesky,Social,3.81189,5613,0,"10,000,000+",0,Mature 17+,20204,768,1,2.44,True,False,google,565.0205619850418
+com.localaiapp.scoops,"Scoopz: Real Life, Real Video",Entertainment,4.7267256,6840,0,"5,000,000+",0,Mature 17+,20204,443,1,4.62,True,False,google,485.60770703607693
+com.linkedin.android,LinkedIn: Jobs & Business News,Business,4.292461,98375,0,"1,000,000,000+",0,Everyone,20204,5153,1,4.0,True,True,google,2362.152596348625
+com.efsanespor.sportvy,Sportvy,Social,0.0,0,0,"10,000+",0,Mature 17+,20204,41,1,2.0,True,True,google,30.0
+co.yellw.yellowapp,Yubo: Make new friends,Social,3.905884,30035,0,"10,000,000+",0,Teen,20204,3528,1,3.14,True,True,google,1684.1590370908298
+ru.ok.android,OK: Social Network,Social,4.6912026,2802,0,"100,000,000+",0,Teen,20204,4805,1,3.52,True,True,google,2223.1360031504996
+tv.twitch.android.app,Twitch: Live Streaming,Entertainment,4.043342,237630,0,"100,000,000+",0,Teen,20204,3649,1,3.72,True,True,google,1752.3917034195538
+me.zepeto.main,"ZEPETO: Avatar, Connect & Live",Entertainment,4.47151,52358,0,"100,000,000+",0,Teen,20204,2451,1,4.0,True,True,google,1287.2372041712686
+com.vkontakte.android,"VK: music, video, messenger",Social,3.5763016,10849,0,"100,000,000+",0,Teen,20204,5085,1,3.14,True,True,google,2283.0521979973228
+com.tumblr,"Tumblr—Fandom, Art, Chaos",Social,3.9476018,330250,0,"100,000,000+",0,Mature 17+,20204,5389,1,3.9,True,True,google,2445.1965361458456

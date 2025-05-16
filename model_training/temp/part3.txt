@@ -1,0 +1,390 @@
+## 6. Model Training and Evaluation
+```
+
+```python
+# Train Random Forest Model
+rf_model, rf_rmse, rf_r2 = train_random_forest(X_train_preprocessed, y_train, X_val_preprocessed, y_val)
+
+# Plot feature importance
+plt.figure(figsize=(12, 6))
+importances = rf_model.feature_importances_
+indices = np.argsort(importances)[::-1]
+
+plt.title('Random Forest Feature Importances')
+plt.bar(range(min(20, len(indices))), importances[indices][:20], align='center')
+plt.xticks(range(min(20, len(indices))), [feature_names_preprocessed[i] for i in indices][:20], rotation=90)
+plt.tight_layout()
+plt.show()
+```
+
+```python
+# Train XGBoost Model
+xgb_model, xgb_rmse, xgb_r2 = train_xgboost(X_train_preprocessed, y_train, X_val_preprocessed, y_val)
+
+# Plot feature importance
+plt.figure(figsize=(12, 6))
+xgb.plot_importance(xgb_model, max_num_features=20)
+plt.title('XGBoost Feature Importances')
+plt.tight_layout()
+plt.show()
+```
+
+```python
+# Train Neural Network Model
+nn_model, nn_rmse, nn_r2 = train_neural_network(X_train_preprocessed, y_train, X_val_preprocessed, y_val)
+```
+
+```python
+# Train Bidirectional LSTM Model
+lstm_model, X_train_seq, X_val_seq, lstm_rmse, lstm_r2 = train_lstm_model(
+    X_train, X_val, y_train, y_val, numerical_features
+)
+```
+
+```python
+# Train Combined Ensemble Model
+models = [rf_model, xgb_model, nn_model, lstm_model]
+X_train_list = [X_train_preprocessed, X_train_preprocessed, X_train_preprocessed, X_train_seq]
+X_val_list = [X_val_preprocessed, X_val_preprocessed, X_val_preprocessed, X_val_seq]
+
+combined_model, combined_rmse, combined_r2 = train_combined_model(
+    models, X_train_list, X_val_list, y_train, y_val
+)
+```
+
+```python
+# Compare all models
+model_results = pd.DataFrame({
+    'Model': ['Random Forest', 'XGBoost', 'Neural Network', 'Bidirectional LSTM', 'Combined Model'],
+    'RMSE': [rf_rmse, xgb_rmse, nn_rmse, lstm_rmse, combined_rmse],
+    'R²': [rf_r2, xgb_r2, nn_r2, lstm_r2, combined_r2]
+})
+
+model_results = model_results.sort_values('R²', ascending=False)
+print("Model Performance Comparison:")
+display(model_results)
+
+# Plot model comparison
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.bar(model_results['Model'], model_results['RMSE'])
+plt.title('RMSE by Model (Lower is Better)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.subplot(1, 2, 2)
+plt.bar(model_results['Model'], model_results['R²'])
+plt.title('R² by Model (Higher is Better)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.show()
+```
+
+```
+## 7. Final Model Evaluation on Test Set
+```
+
+```python
+# Select the best model based on validation results
+best_model_name = model_results.iloc[0]['Model']
+print(f"Best performing model: {best_model_name}")
+
+# Evaluate on test set
+if best_model_name == 'Random Forest':
+    best_model = rf_model
+    X_test_input = X_test_preprocessed
+elif best_model_name == 'XGBoost':
+    best_model = xgb_model
+    X_test_input = X_test_preprocessed
+elif best_model_name == 'Neural Network':
+    best_model = nn_model
+    X_test_input = X_test_preprocessed
+elif best_model_name == 'Bidirectional LSTM':
+    best_model = lstm_model
+    X_test_seq, test_indices = prepare_sequence_data(X_test, numerical_features)
+    X_test_input = X_test_seq
+else:  # Combined Model
+    best_model = combined_model
+    # Need to get predictions from all models for test set
+    test_predictions = []
+    
+    # Random Forest
+    test_predictions.append(rf_model.predict(X_test_preprocessed))
+    
+    # XGBoost
+    test_predictions.append(xgb_model.predict(X_test_preprocessed))
+    
+    # Neural Network
+    test_predictions.append(nn_model.predict(X_test_preprocessed).flatten())
+    
+    # LSTM
+    X_test_seq, test_indices = prepare_sequence_data(X_test, numerical_features)
+    test_predictions.append(lstm_model.predict(X_test_seq).flatten())
+    
+    X_test_input = np.column_stack(test_predictions)
+
+# Make predictions on test set
+if best_model_name in ['Random Forest', 'XGBoost', 'Neural Network', 'Combined Model']:
+    y_pred_test = best_model.predict(X_test_input)
+    if best_model_name == 'Neural Network':
+        y_pred_test = y_pred_test.flatten()
+else:  # LSTM model
+    y_pred_test = best_model.predict(X_test_input).flatten()
+
+# Calculate test metrics
+test_mse = mean_squared_error(y_test, y_pred_test)
+test_rmse = np.sqrt(test_mse)
+test_mae = mean_absolute_error(y_test, y_pred_test)
+test_r2 = r2_score(y_test, y_pred_test)
+
+print(f"\nTest set performance of {best_model_name}:")
+print(f"Mean Squared Error: {test_mse:.2f}")
+print(f"Root Mean Squared Error: {test_rmse:.2f}")
+print(f"Mean Absolute Error: {test_mae:.2f}")
+print(f"R² Score: {test_r2:.4f}")
+
+# Plot predicted vs actual values
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred_test, alpha=0.5)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+plt.xlabel('Actual Longevity (days)')
+plt.ylabel('Predicted Longevity (days)')
+plt.title(f'{best_model_name} - Predicted vs Actual Values')
+plt.show()
+
+# Plot error distribution
+errors = y_test - y_pred_test
+plt.figure(figsize=(10, 6))
+plt.hist(errors, bins=50)
+plt.xlabel('Prediction Error (days)')
+plt.ylabel('Frequency')
+plt.title('Error Distribution')
+plt.axvline(x=0, color='r', linestyle='--')
+plt.show()
+```
+
+```
+## 8. Save Models for Deployment
+```
+
+```python
+# Save all trained models
+os.makedirs('models', exist_ok=True)
+
+# Save preprocessing pipeline for inference
+joblib.dump(preprocessor, 'models/preprocessor.pkl')
+
+# Save individual models
+joblib.dump(rf_model, 'models/random_forest_model.pkl')
+joblib.dump(xgb_model, 'models/xgboost_model.pkl')
+
+# For neural network models, save both architecture and weights
+if nn_model is not None:
+    nn_model.save('models/neural_network_model')
+
+if lstm_model is not None:
+    lstm_model.save('models/lstm_model')
+
+# Save combined model if available
+if combined_model is not None:
+    joblib.dump(combined_model, 'models/combined_model.pkl')
+
+# Save model metadata
+model_metadata = {
+    'creation_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    'features_used': features,
+    'categorical_features': categorical_features,
+    'numerical_features': numerical_features,
+    'dataset_size': len(X),
+    'best_model': {
+        'name': best_model_name,
+        'test_rmse': float(test_rmse),
+        'test_r2': float(test_r2)
+    },
+    'model_performances': {
+        'random_forest': {
+            'validation_rmse': float(rf_rmse),
+            'validation_r2': float(rf_r2)
+        },
+        'xgboost': {
+            'validation_rmse': float(xgb_rmse),
+            'validation_r2': float(xgb_r2)
+        },
+        'neural_network': {
+            'validation_rmse': float(nn_rmse),
+            'validation_r2': float(nn_r2)
+        },
+        'lstm': {
+            'validation_rmse': float(lstm_rmse),
+            'validation_r2': float(lstm_r2)
+        }
+    }
+}
+
+if combined_model is not None:
+    model_metadata['model_performances']['combined_model'] = {
+        'validation_rmse': float(combined_rmse),
+        'validation_r2': float(combined_r2)
+    }
+
+# Save metadata
+with open('models/model_metadata.json', 'w') as f:
+    json.dump(model_metadata, f, indent=2)
+
+print(f"All models saved to the 'models' directory.")
+print(f"Best model: {best_model_name}")
+```
+
+```
+## 9. Inference Function for Deployment
+```
+
+```python
+def predict_app_longevity(app_data, model_name=None):
+    """
+    Predict app longevity using the specified or best-performing model
+    
+    Parameters:
+    - app_data: Dict containing app features
+    - model_name: Model to use (random_forest, xgboost, neural_network, lstm, or combined)
+                 If None, use the best-performing model
+                 
+    Returns:
+    - predicted_longevity: Dict with predictions in days, months, and years
+    """
+    # Load model metadata
+    with open('models/model_metadata.json', 'r') as f:
+        metadata = json.load(f)
+    
+    # Determine which model to use
+    if model_name is None:
+        model_name = metadata['best_model']['name'].lower().replace(' ', '_')
+    
+    # Prepare features
+    df = pd.DataFrame([app_data])
+    
+    # Apply preprocessing
+    preprocessor = joblib.load('models/preprocessor.pkl')
+    
+    # Handle missing features based on training data
+    for feature in metadata['features_used']:
+        if feature not in df.columns:
+            if feature in metadata['numerical_features']:
+                df[feature] = 0
+            else:
+                df[feature] = 'unknown'
+    
+    # Get preprocessed input
+    X_preprocessed = preprocessor.transform(df[metadata['features_used']])
+    
+    # Load appropriate model and make prediction
+    if model_name == 'random_forest':
+        model = joblib.load('models/random_forest_model.pkl')
+        prediction = model.predict(X_preprocessed)[0]
+    elif model_name == 'xgboost':
+        model = joblib.load('models/xgboost_model.pkl')
+        prediction = model.predict(X_preprocessed)[0]
+    elif model_name == 'neural_network':
+        model = tf.keras.models.load_model('models/neural_network_model')
+        prediction = model.predict(X_preprocessed)[0][0]
+    elif model_name == 'lstm':
+        # For LSTM, need to prepare sequence data
+        numerical_features = metadata['numerical_features']
+        X_seq, _ = prepare_sequence_data(df, numerical_features)
+        
+        model = tf.keras.models.load_model('models/lstm_model')
+        prediction = model.predict(X_seq)[0][0]
+    elif model_name == 'combined':
+        # Need predictions from all models
+        predictions = []
+        
+        # Random Forest
+        rf_model = joblib.load('models/random_forest_model.pkl')
+        predictions.append(rf_model.predict(X_preprocessed)[0])
+        
+        # XGBoost
+        xgb_model = joblib.load('models/xgboost_model.pkl')
+        predictions.append(xgb_model.predict(X_preprocessed)[0])
+        
+        # Neural Network
+        nn_model = tf.keras.models.load_model('models/neural_network_model')
+        predictions.append(nn_model.predict(X_preprocessed)[0][0])
+        
+        # LSTM
+        numerical_features = metadata['numerical_features']
+        X_seq, _ = prepare_sequence_data(df, numerical_features)
+        
+        lstm_model = tf.keras.models.load_model('models/lstm_model')
+        predictions.append(lstm_model.predict(X_seq)[0][0])
+        
+        # Combine predictions
+        combined_input = np.array([predictions])
+        combined_model = joblib.load('models/combined_model.pkl')
+        prediction = combined_model.predict(combined_input)[0]
+    else:
+        raise ValueError(f"Unknown model: {model_name}")
+    
+    # Convert prediction to various time units
+    longevity_months = prediction / 30.44  # Average days in a month
+    longevity_years = longevity_months / 12
+    
+    return {
+        'predicted_longevity_days': float(prediction),
+        'predicted_longevity_months': float(longevity_months),
+        'predicted_longevity_years': float(longevity_years),
+        'model_used': model_name
+    }
+```
+
+```python
+# Example usage of the prediction function
+sample_app = {
+    'rating': 4.5,
+    'size_mb': 25,
+    'log_installs': np.log1p(1000000),
+    'log_reviews': np.log1p(5000),
+    'price_numeric': 0.0,
+    'is_free': 1,
+    'has_iap': 1,
+    'days_since_update': 30,
+    'app_age_days': 365,
+    'is_mature': 0,
+    'has_dev_website': 1,
+    'has_dev_email': 1,
+    'developer_apps_count': 5,
+    'avg_sentiment': 4.2,
+    'category': 'Education'
+}
+
+# Make predictions with different models
+for model_name in ['random_forest', 'xgboost', 'neural_network', 'lstm', 'combined']:
+    try:
+        prediction = predict_app_longevity(sample_app, model_name)
+        print(f"\n{model_name.upper()} Prediction:")
+        print(f"Predicted longevity in days: {prediction['predicted_longevity_days']:.1f}")
+        print(f"Predicted longevity in months: {prediction['predicted_longevity_months']:.1f}")
+        print(f"Predicted longevity in years: {prediction['predicted_longevity_years']:.1f}")
+    except Exception as e:
+        print(f"Error with {model_name} model: {str(e)}")
+```
+
+```
+## 10. Conclusion
+
+This notebook demonstrates a comprehensive approach to app longevity prediction using multiple models:
+
+1. **Traditional ML Models**: RandomForest and XGBoost provide interpretable predictions with feature importance.
+2. **Deep Learning Models**: Neural Network and Bidirectional LSTM capture complex patterns in the data.
+3. **Combined Ensemble Model**: Leverages the strengths of all models for potentially improved predictions.
+
+The trained models can be deployed to the App Longevity Prediction SaaS platform for real-time predictions.
+
+For production deployment:
+1. Save and load the `predict_app_longevity` function
+2. Connect it to your API endpoints
+3. Implement a feedback loop to continuously improve the models with new data
+
+The bidirectional LSTM and neural network models provide enhanced capabilities for capturing complex patterns that might be missed by traditional machine learning approaches.
+``` 

@@ -1,0 +1,24 @@
+services:
+  # Web service for backend API
+  - type: web
+    name: app-longevity-backend
+    env: python
+    buildCommand: |
+      # Install dependencies
+      pip install -r app_longevity_saas/backend/requirements.txt
+    startCommand: |
+      cd app_longevity_saas && uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: app-longevity-db
+          property: connectionString
+    autoDeploy: true
+
+databases:
+  # Database for app data
+  - name: app-longevity-db
+    region: oregon
+    plan: free 

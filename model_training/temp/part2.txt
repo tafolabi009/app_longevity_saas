@@ -1,0 +1,580 @@
+## 3. Data Preprocessing
+```
+
+```python
+def clean_installs(install_str):
+    """Convert install string to numeric value"""
+    if pd.isna(install_str) or install_str == '':
+        return 0
+    
+    try:
+        install_str = str(install_str).replace(',', '').replace('+', '').replace('Free', '0')
+        return int(install_str)
+    except:
+        return 0
+
+def clean_size(size_str):
+    """Convert size string to MB"""
+    if pd.isna(size_str) or size_str == '':
+        return None
+    
+    try:
+        size_str = str(size_str).upper()
+        
+        if 'K' in size_str:
+            return float(size_str.replace('K', '').strip()) / 1024
+        elif 'M' in size_str:
+            return float(size_str.replace('M', '').strip())
+        elif 'G' in size_str:
+            return float(size_str.replace('G', '').strip()) * 1024
+        elif 'VARIES' in size_str or 'VARIES WITH DEVICE' in size_str:
+            return None
+        else:
+            return float(size_str)
+    except:
+        return None
+
+def preprocess_data(df):
+    """Clean and preprocess app data"""
+    # Make a copy to avoid modifying the original
+    df_clean = df.copy()
+    
+    # Handle missing values
+    df_clean = df_clean.fillna({
+        'rating': df_clean['rating'].median(),
+        'reviews': 0,
+        'developer_apps_count': 1
+    })
+    
+    # If we're using the real API data, we need to clean some fields
+    if 'size_mb' not in df_clean.columns and 'size' in df_clean.columns:
+        # Clean installs
+        df_clean['installs'] = df_clean['installs'].apply(clean_installs)
+        
+        # Clean app size
+        df_clean['size_mb'] = df_clean['size'].apply(clean_size)
+        
+        # Extract numeric price
+        df_clean['price_numeric'] = df_clean['price'].apply(
+            lambda x: float(str(x).replace('$', '')) if str(x) != 'Free' else 0.0
+        )
+        
+        # Create features for paid/free app
+        df_clean['is_free'] = df_clean['free'].astype(int) if 'free' in df_clean.columns else 1
+        
+        # Create feature for has in-app purchases
+        df_clean['has_iap'] = df_clean['IAP'].astype(int) if 'IAP' in df_clean.columns else 0
+        
+        # Log transform skewed numeric features
+        if 'log_installs' not in df_clean.columns:
+            df_clean['log_installs'] = np.log1p(df_clean['installs'])
+        
+        if 'log_reviews' not in df_clean.columns:
+            df_clean['log_reviews'] = np.log1p(df_clean['reviews'])
+        
+        # Create feature for app maturity
+        if 'is_mature' not in df_clean.columns and 'content_rating' in df_clean.columns:
+            df_clean['is_mature'] = df_clean['content_rating'].apply(
+                lambda x: 1 if x in ['Mature 17+', 'Adults only 18+'] else 0
+            )
+        
+        # Create features for developer stats
+        if 'has_dev_website' not in df_clean.columns and 'developer_website' in df_clean.columns:
+            df_clean['has_dev_website'] = df_clean['developer_website'].apply(
+                lambda x: 0 if pd.isna(x) or x == '' else 1
+            )
+        
+        if 'has_dev_email' not in df_clean.columns and 'developer_email' in df_clean.columns:
+            df_clean['has_dev_email'] = df_clean['developer_email'].apply(
+                lambda x: 0 if pd.isna(x) or x == '' else 1
+            )
+    
+    # Select features for modeling
+    features = [
+        'rating', 'size_mb', 'log_installs', 'log_reviews', 'price_numeric',
+        'is_free', 'has_iap', 'days_since_update', 'app_age_days',
+        'is_mature', 'has_dev_website', 'has_dev_email',
+        'developer_apps_count', 'avg_sentiment', 'category'
+    ]
+    
+    # Drop rows with missing target
+    df_clean = df_clean.dropna(subset=['estimated_longevity_days'])
+    
+    # Fill remaining missing values with appropriate defaults
+    for col in df_clean.columns:
+        if col in ['size_mb', 'avg_sentiment']:
+            df_clean[col] = df_clean[col].fillna(df_clean[col].median())
+        elif col in ['category']:
+            df_clean[col] = df_clean[col].fillna('Other')
+        elif col not in ['app_id', 'title', 'estimated_longevity_days']:
+            if df_clean[col].dtype in ['int64', 'float64']:
+                df_clean[col] = df_clean[col].fillna(0)
+            else:
+                df_clean[col] = df_clean[col].fillna('')
+    
+    # Select features that are present
+    available_features = [f for f in features if f in df_clean.columns]
+    
+    # Create final dataset
+    X = df_clean[available_features].copy()
+    y = df_clean['estimated_longevity_days']
+    
+    # Save preprocessed data
+    df_clean.to_csv('data/preprocessed_app_data.csv', index=False)
+    
+    return X, y, available_features, df_clean
+```
+
+```python
+# Preprocess data
+X, y, features, df_clean = preprocess_data(app_df)
+
+# Display dataset info
+print(f"Dataset shape: {X.shape}")
+print(f"Features used: {features}")
+X.describe()
+```
+
+```
+## 4. Feature Engineering and Data Splitting
+```
+
+```python
+# Identify categorical and numerical features
+categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
+numerical_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+
+print(f"Categorical features: {categorical_features}")
+print(f"Numerical features: {numerical_features}")
+
+# Split data into train, validation, and test sets
+X_train, X_temp, y_train, y_temp = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+X_val, X_test, y_val, y_test = train_test_split(
+    X_temp, y_temp, test_size=0.5, random_state=42
+)
+
+print(f"Training set: {X_train.shape}")
+print(f"Validation set: {X_val.shape}")
+print(f"Test set: {X_test.shape}")
+```
+
+```python
+# Create preprocessing pipeline
+numerical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numerical_transformer, numerical_features),
+        ('cat', categorical_transformer, categorical_features)
+    ]
+)
+
+# Apply preprocessing for all models
+X_train_preprocessed = preprocessor.fit_transform(X_train)
+X_val_preprocessed = preprocessor.transform(X_val)
+X_test_preprocessed = preprocessor.transform(X_test)
+
+# Get feature names after preprocessing (for tree-based model interpretation)
+feature_names_preprocessed = []
+for name, trans, cols in preprocessor.transformers_:
+    if name == 'num':
+        feature_names_preprocessed.extend(cols)
+    elif name == 'cat':
+        ohe = trans.named_steps['onehot']
+        for i, col in enumerate(cols):
+            for cat in ohe.categories_[i]:
+                feature_names_preprocessed.append(f"{col}_{cat}")
+
+print(f"Number of features after preprocessing: {len(feature_names_preprocessed)}")
+```
+
+```
+## 5. Model Definitions
+```
+
+```python
+# 1. RandomForest Model
+def train_random_forest(X_train, y_train, X_val, y_val):
+    """Train and evaluate RandomForest model"""
+    print("Training Random Forest model...")
+    
+    rf_model = RandomForestRegressor(
+        n_estimators=100,
+        max_depth=15,
+        min_samples_split=5,
+        min_samples_leaf=2,
+        random_state=42,
+        n_jobs=-1
+    )
+    
+    rf_model.fit(X_train, y_train)
+    
+    # Evaluate on validation set
+    y_pred_val = rf_model.predict(X_val)
+    val_mse = mean_squared_error(y_val, y_pred_val)
+    val_rmse = np.sqrt(val_mse)
+    val_mae = mean_absolute_error(y_val, y_pred_val)
+    val_r2 = r2_score(y_val, y_pred_val)
+    
+    print(f"Validation RMSE: {val_rmse:.2f}")
+    print(f"Validation MAE: {val_mae:.2f}")
+    print(f"Validation R²: {val_r2:.4f}")
+    
+    return rf_model, val_rmse, val_r2
+
+# 2. XGBoost Model
+def train_xgboost(X_train, y_train, X_val, y_val):
+    """Train and evaluate XGBoost model"""
+    print("Training XGBoost model...")
+    
+    xgb_model = xgb.XGBRegressor(
+        n_estimators=100,
+        learning_rate=0.1,
+        max_depth=7,
+        min_child_weight=1,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        gamma=0,
+        random_state=42,
+        n_jobs=-1
+    )
+    
+    xgb_model.fit(
+        X_train, y_train,
+        eval_set=[(X_val, y_val)],
+        eval_metric='rmse',
+        early_stopping_rounds=10,
+        verbose=False
+    )
+    
+    # Evaluate on validation set
+    y_pred_val = xgb_model.predict(X_val)
+    val_mse = mean_squared_error(y_val, y_pred_val)
+    val_rmse = np.sqrt(val_mse)
+    val_mae = mean_absolute_error(y_val, y_pred_val)
+    val_r2 = r2_score(y_val, y_pred_val)
+    
+    print(f"Validation RMSE: {val_rmse:.2f}")
+    print(f"Validation MAE: {val_mae:.2f}")
+    print(f"Validation R²: {val_r2:.4f}")
+    
+    return xgb_model, val_rmse, val_r2
+
+# 3. Neural Network Model
+def create_neural_network(input_dim):
+    """Create a deep neural network model"""
+    model = Sequential([
+        Dense(128, activation='relu', input_shape=(input_dim,)),
+        BatchNormalization(),
+        Dropout(0.3),
+        Dense(64, activation='relu'),
+        BatchNormalization(),
+        Dropout(0.2),
+        Dense(32, activation='relu'),
+        Dense(1)
+    ])
+    
+    model.compile(
+        optimizer=Adam(learning_rate=0.001),
+        loss='mse',
+        metrics=['mae']
+    )
+    
+    return model
+
+def train_neural_network(X_train, y_train, X_val, y_val):
+    """Train and evaluate Neural Network model"""
+    print("Training Neural Network model...")
+    
+    input_dim = X_train.shape[1]
+    
+    nn_model = create_neural_network(input_dim)
+    
+    # Define callbacks
+    early_stopping = EarlyStopping(
+        monitor='val_loss',
+        patience=10,
+        restore_best_weights=True
+    )
+    
+    # Train model
+    history = nn_model.fit(
+        X_train, y_train,
+        validation_data=(X_val, y_val),
+        epochs=100,
+        batch_size=32,
+        callbacks=[early_stopping],
+        verbose=0
+    )
+    
+    # Evaluate on validation set
+    y_pred_val = nn_model.predict(X_val).flatten()
+    val_mse = mean_squared_error(y_val, y_pred_val)
+    val_rmse = np.sqrt(val_mse)
+    val_mae = mean_absolute_error(y_val, y_pred_val)
+    val_r2 = r2_score(y_val, y_pred_val)
+    
+    print(f"Validation RMSE: {val_rmse:.2f}")
+    print(f"Validation MAE: {val_mae:.2f}")
+    print(f"Validation R²: {val_r2:.4f}")
+    
+    # Plot training history
+    plt.figure(figsize=(12, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['loss'], label='Training Loss')
+    plt.plot(history.history['val_loss'], label='Validation Loss')
+    plt.title('Loss Curves')
+    plt.xlabel('Epoch')
+    plt.ylabel('MSE Loss')
+    plt.legend()
+    
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['mae'], label='Training MAE')
+    plt.plot(history.history['val_mae'], label='Validation MAE')
+    plt.title('MAE Curves')
+    plt.xlabel('Epoch')
+    plt.ylabel('MAE')
+    plt.legend()
+    
+    plt.tight_layout()
+    plt.show()
+    
+    return nn_model, val_rmse, val_r2
+
+# 4. Bidirectional LSTM Model
+def prepare_sequence_data(df, numerical_features, lookback=5):
+    """
+    Prepare sequence data for LSTM model by creating lookback sequences
+    of numerical features and activity data
+    """
+    # For demonstration, we'll create synthetic sequential data based on our features
+    # In a real app, you'd use actual time-series data like daily active users, etc.
+    
+    # Get key numerical features that might have temporal significance
+    seq_features = ['days_since_update', 'rating', 'log_reviews', 'log_installs']
+    seq_features = [f for f in seq_features if f in numerical_features]
+    
+    # Create app sequences dictionary
+    app_sequences = {}
+    
+    # Group by app_id if available, otherwise create artificial sequences
+    if 'app_id' in df.columns:
+        # Group apps and sort by date (if we had real time-series data)
+        for app_id, app_data in df.groupby('app_id'):
+            app_sequences[app_id] = app_data[seq_features].values
+    else:
+        # Create synthetic sequences for each row
+        for i, row in df.iterrows():
+            base_values = row[seq_features].values
+            
+            # Create synthetic lookback sequence with some random noise
+            sequence = []
+            for j in range(lookback):
+                # Add decreasing noise as we approach the "present"
+                noise_factor = (lookback - j) / lookback  # More noise for earlier timepoints
+                noise = np.random.normal(0, 0.1, len(base_values)) * noise_factor
+                sequence.append(base_values + noise)
+            
+            app_sequences[i] = np.array(sequence)
+    
+    # Prepare X sequences and y target values
+    X_seq = []
+    indices = []
+    
+    for app_id, sequence in app_sequences.items():
+        # If sequence is shorter than lookback, pad with zeros
+        if len(sequence) < lookback:
+            padded_seq = np.zeros((lookback, len(seq_features)))
+            padded_seq[-len(sequence):] = sequence
+            X_seq.append(padded_seq)
+        else:
+            # Use the last 'lookback' entries
+            X_seq.append(sequence[-lookback:])
+        
+        indices.append(app_id)
+    
+    return np.array(X_seq), indices
+
+def create_lstm_model(seq_length, n_features, dense_dim=0, dense_input=None):
+    """Create a Bidirectional LSTM model"""
+    # Sequence input
+    seq_input = Input(shape=(seq_length, n_features), name='sequence_input')
+    
+    # LSTM layers
+    x = Bidirectional(LSTM(64, return_sequences=True))(seq_input)
+    x = Dropout(0.3)(x)
+    x = Bidirectional(LSTM(32))(x)
+    x = Dropout(0.2)(x)
+    
+    # Combine with dense features if provided
+    if dense_dim > 0 and dense_input is not None:
+        dense_features = Input(shape=(dense_dim,), name='dense_input')
+        combined = Concatenate()([x, dense_features])
+        x = Dense(64, activation='relu')(combined)
+        x = BatchNormalization()(x)
+        x = Dropout(0.2)(x)
+        output = Dense(1)(x)
+        model = Model(inputs=[seq_input, dense_input], outputs=output)
+    else:
+        x = Dense(32, activation='relu')(x)
+        output = Dense(1)(x)
+        model = Model(inputs=seq_input, outputs=output)
+    
+    model.compile(
+        optimizer=Adam(learning_rate=0.001),
+        loss='mse',
+        metrics=['mae']
+    )
+    
+    return model
+
+def train_lstm_model(df_train, df_val, y_train, y_val, numerical_features, lookback=5):
+    """Train and evaluate Bidirectional LSTM model"""
+    print("Training Bidirectional LSTM model...")
+    
+    # Prepare sequence data
+    X_train_seq, train_indices = prepare_sequence_data(df_train, numerical_features, lookback)
+    X_val_seq, val_indices = prepare_sequence_data(df_val, numerical_features, lookback)
+    
+    # Match y values with sequence indices
+    if isinstance(train_indices[0], (int, np.integer)):
+        # For synthetic data where indices are row numbers
+        y_train_seq = y_train.values
+        y_val_seq = y_val.values
+    else:
+        # For real data grouped by app_id
+        y_train_seq = np.array([y_train.loc[df_train['app_id'] == idx].values[0] for idx in train_indices])
+        y_val_seq = np.array([y_val.loc[df_val['app_id'] == idx].values[0] for idx in val_indices])
+    
+    # Create and train model
+    seq_length = X_train_seq.shape[1]
+    n_features = X_train_seq.shape[2]
+    
+    lstm_model = create_lstm_model(seq_length, n_features)
+    
+    # Define callbacks
+    early_stopping = EarlyStopping(
+        monitor='val_loss',
+        patience=10,
+        restore_best_weights=True
+    )
+    
+    # Train model
+    history = lstm_model.fit(
+        X_train_seq, y_train_seq,
+        validation_data=(X_val_seq, y_val_seq),
+        epochs=100,
+        batch_size=32,
+        callbacks=[early_stopping],
+        verbose=0
+    )
+    
+    # Evaluate on validation set
+    y_pred_val = lstm_model.predict(X_val_seq).flatten()
+    val_mse = mean_squared_error(y_val_seq, y_pred_val)
+    val_rmse = np.sqrt(val_mse)
+    val_mae = mean_absolute_error(y_val_seq, y_pred_val)
+    val_r2 = r2_score(y_val_seq, y_pred_val)
+    
+    print(f"Validation RMSE: {val_rmse:.2f}")
+    print(f"Validation MAE: {val_mae:.2f}")
+    print(f"Validation R²: {val_r2:.4f}")
+    
+    # Plot training history
+    plt.figure(figsize=(12, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['loss'], label='Training Loss')
+    plt.plot(history.history['val_loss'], label='Validation Loss')
+    plt.title('Loss Curves')
+    plt.xlabel('Epoch')
+    plt.ylabel('MSE Loss')
+    plt.legend()
+    
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['mae'], label='Training MAE')
+    plt.plot(history.history['val_mae'], label='Validation MAE')
+    plt.title('MAE Curves')
+    plt.xlabel('Epoch')
+    plt.ylabel('MAE')
+    plt.legend()
+    
+    plt.tight_layout()
+    plt.show()
+    
+    return lstm_model, X_train_seq, X_val_seq, val_rmse, val_r2
+
+# 5. Combined Model
+def train_combined_model(models, X_train_list, X_val_list, y_train, y_val):
+    """
+    Train a meta-model that combines predictions from different models
+    
+    Parameters:
+    - models: List of trained models [rf_model, xgb_model, nn_model, lstm_model]
+    - X_train_list: List of training data for each model [X_train_preprocessed, X_train_preprocessed, X_train_preprocessed, X_train_seq]
+    - X_val_list: List of validation data for each model
+    - y_train, y_val: Target values
+    """
+    print("Training Combined Ensemble model...")
+    
+    # Get predictions from each model for training data
+    train_predictions = []
+    for model, X_train in zip(models, X_train_list):
+        if isinstance(model, (RandomForestRegressor, xgb.XGBRegressor)):
+            pred = model.predict(X_train)
+        else:  # Keras model
+            pred = model.predict(X_train).flatten()
+        train_predictions.append(pred)
+    
+    # Get predictions from each model for validation data
+    val_predictions = []
+    for model, X_val in zip(models, X_val_list):
+        if isinstance(model, (RandomForestRegressor, xgb.XGBRegressor)):
+            pred = model.predict(X_val)
+        else:  # Keras model
+            pred = model.predict(X_val).flatten()
+        val_predictions.append(pred)
+    
+    # Combine predictions into a single array
+    X_train_meta = np.column_stack(train_predictions)
+    X_val_meta = np.column_stack(val_predictions)
+    
+    # Train a meta-model (Ridge regression)
+    from sklearn.linear_model import Ridge
+    
+    meta_model = Ridge(alpha=1.0)
+    meta_model.fit(X_train_meta, y_train)
+    
+    # Evaluate on validation set
+    y_pred_val = meta_model.predict(X_val_meta)
+    val_mse = mean_squared_error(y_val, y_pred_val)
+    val_rmse = np.sqrt(val_mse)
+    val_mae = mean_absolute_error(y_val, y_pred_val)
+    val_r2 = r2_score(y_val, y_pred_val)
+    
+    print(f"Validation RMSE: {val_rmse:.2f}")
+    print(f"Validation MAE: {val_mae:.2f}")
+    print(f"Validation R²: {val_r2:.4f}")
+    
+    # Get feature importances (model weights)
+    model_names = ['RandomForest', 'XGBoost', 'Neural Network', 'LSTM']
+    weights = meta_model.coef_
+    
+    plt.figure(figsize=(10, 4))
+    plt.bar(model_names, weights)
+    plt.title('Model Weights in Ensemble')
+    plt.ylabel('Weight')
+    plt.show()
+    
+    return meta_model, val_rmse, val_r2
+``` 

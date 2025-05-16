@@ -1,0 +1,71 @@
+{
+  "creation_date": "2025-05-16 16:06:00",
+  "features_used": [
+    "rating",
+    "size_mb",
+    "log_installs",
+    "log_reviews",
+    "price_numeric",
+    "is_free",
+    "has_iap",
+    "days_since_update",
+    "app_age_days",
+    "is_mature",
+    "developer_apps_count",
+    "avg_sentiment",
+    "category",
+    "store",
+    "rating_reviews_interaction",
+    "installs_sentiment_interaction",
+    "category_popularity"
+  ],
+  "categorical_features": [
+    "category",
+    "store"
+  ],
+  "numerical_features": [
+    "rating",
+    "size_mb",
+    "log_installs",
+    "log_reviews",
+    "price_numeric",
+    "is_free",
+    "has_iap",
+    "days_since_update",
+    "app_age_days",
+    "is_mature",
+    "developer_apps_count",
+    "avg_sentiment",
+    "rating_reviews_interaction",
+    "installs_sentiment_interaction",
+    "category_popularity"
+  ],
+  "dataset_size": 100,
+  "best_model": {
+    "name": "Combined Model",
+    "test_rmse": 38.2664841796842,
+    "test_r2": 0.9970438010460695
+  },
+  "model_performances": {
+    "random_forest": {
+      "validation_rmse": 0.1364510412692192,
+      "validation_r2": 0.9832255070929511
+    },
+    "xgboost": {
+      "validation_rmse": 0.11077558854833164,
+      "validation_r2": 0.9889443616368275
+    },
+    "neural_network": {
+      "validation_rmse": 5.448609024086185,
+      "validation_r2": -25.746501455673748
+    },
+    "lstm": {
+      "validation_rmse": 0.6862319903164484,
+      "validation_r2": 0.5757346035242362
+    },
+    "combined_model": {
+      "validation_rmse": 0.0850983402833052,
+      "validation_r2": 0.9934756406708123
+    }
+  }
+}

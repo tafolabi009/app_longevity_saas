@@ -1,0 +1,268 @@
+# App Longevity Prediction - Automated Training Pipeline with LSTM and Neural Networks
+
+This notebook automatically:
+1. Installs required dependencies
+2. Collects app data using the Google Play Store API
+3. Preprocesses the data
+4. Trains multiple models (RandomForest, XGBoost, Bidirectional LSTM, Neural Network, Combined Model)
+5. Evaluates model performance
+6. Saves the best model for deployment
+
+## 1. Environment Setup
+```
+
+```python
+# Install required packages
+!pip install -q numpy pandas scikit-learn xgboost matplotlib seaborn google-play-scraper joblib requests tqdm tensorflow keras
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+import json
+import time
+import requests
+import joblib
+from datetime import datetime
+from tqdm.notebook import tqdm
+from google_play_scraper import app, search, reviews, Sort
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.impute import SimpleImputer
+import xgboost as xgb
+import tensorflow as tf
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, LSTM, Bidirectional, Input, Concatenate, Dropout, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.optimizers import Adam
+
+# Set random seed for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+
+# Set display options for pandas
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', 100)
+pd.set_option('display.width', 1000)
+
+# Create directories for saving models and data
+os.makedirs('models', exist_ok=True)
+os.makedirs('data', exist_ok=True)
+```
+
+```python
+## 2. Automated Data Collection
+
+We'll collect data from Google Play Store for multiple app categories to build a diverse dataset.
+```
+
+```python
+def collect_apps_data(categories, apps_per_category=100):
+    """
+    Collect app data from Google Play Store for specified categories
+    """
+    all_apps_data = []
+    
+    for category in tqdm(categories, desc="Collecting app data by category"):
+        try:
+            # Search for apps in the category
+            results = search(category, lang="en", country="us", n_hits=apps_per_category)
+            
+            # Process each app
+            for app_info in tqdm(results, desc=f"Processing {category} apps", leave=False):
+                app_id = app_info['appId']
+                
+                try:
+                    # Get detailed app information
+                    detailed_info = app(app_id, lang='en', country='us')
+                    
+                    # Get app reviews
+                    app_reviews, _ = reviews(
+                        app_id,
+                        lang='en',
+                        country='us',
+                        sort=Sort.MOST_RELEVANT,
+                        count=100  # Get top 100 reviews
+                    )
+                    
+                    # Calculate average review score
+                    avg_sentiment = np.mean([review['score'] for review in app_reviews]) if app_reviews else 0
+                    
+                    # Calculate app age in days
+                    try:
+                        release_date = datetime.strptime(detailed_info['released'], '%b %d, %Y') if detailed_info['released'] else datetime.now()
+                    except ValueError:
+                        # Handle alternative date formats
+                        try:
+                            release_date = datetime.strptime(detailed_info['released'], '%B %d, %Y') if detailed_info['released'] else datetime.now()
+                        except:
+                            release_date = datetime.now()
+                    
+                    app_age_days = (datetime.now() - release_date).days
+                    
+                    # Extract update frequency (days between updates)
+                    try:
+                        last_update = datetime.strptime(detailed_info['updated'], '%b %d, %Y') if detailed_info['updated'] else datetime.now()
+                    except ValueError:
+                        # Handle alternative date formats
+                        try:
+                            last_update = datetime.strptime(detailed_info['updated'], '%B %d, %Y') if detailed_info['updated'] else datetime.now()
+                        except:
+                            last_update = datetime.now()
+                    
+                    days_since_update = (datetime.now() - last_update).days
+                    
+                    # Prepare app data
+                    app_data = {
+                        'app_id': app_id,
+                        'title': detailed_info['title'],
+                        'category': detailed_info['genre'],
+                        'rating': detailed_info['score'],
+                        'reviews': detailed_info['reviews'],
+                        'size': detailed_info['size'],
+                        'installs': detailed_info['installs'],
+                        'price': detailed_info['price'],
+                        'content_rating': detailed_info['contentRating'],
+                        'last_updated': detailed_info['updated'],
+                        'days_since_update': days_since_update,
+                        'app_age_days': app_age_days,
+                        'min_android': detailed_info['androidVersion'],
+                        'developer_id': detailed_info['developerId'],
+                        'developer_email': detailed_info['developerEmail'] if 'developerEmail' in detailed_info else '',
+                        'developer_website': detailed_info['developerWebsite'] if 'developerWebsite' in detailed_info else '',
+                        'developer_apps_count': len(detailed_info.get('developerApps', [])),
+                        'avg_sentiment': avg_sentiment,
+                        'free': detailed_info.get('free', True),
+                        'IAP': detailed_info.get('containsAds', False)
+                    }
+                    
+                    # Calculate our target: estimated longevity
+                    # We'll use a combination of app age, rating, reviews, and update frequency
+                    # This is a simplified proxy - in a real-world scenario, you'd use actual longevity data
+                    longevity_score = (
+                        app_age_days * 0.4 + 
+                        (detailed_info['score'] * 180) * 0.3 + 
+                        (np.log1p(detailed_info['reviews']) * 30) * 0.2 +
+                        (365 / (days_since_update + 30)) * 100 * 0.1  # More frequent updates = higher score
+                    )
+                    
+                    app_data['estimated_longevity_days'] = longevity_score
+                    
+                    all_apps_data.append(app_data)
+                    
+                    # Small delay to avoid rate limiting
+                    time.sleep(0.5)
+                    
+                except Exception as e:
+                    print(f"Error processing app {app_id}: {str(e)}")
+                    continue
+        except Exception as e:
+            print(f"Error processing category {category}: {str(e)}")
+            continue
+    
+    # Convert to DataFrame
+    df = pd.DataFrame(all_apps_data)
+    
+    # Save raw data
+    df.to_csv('data/raw_app_data.csv', index=False)
+    
+    return df
+```
+
+```python
+# Alternative function to generate synthetic data for testing when API access is limited
+def generate_synthetic_data(n_samples=1000):
+    """
+    Generate synthetic app data for testing
+    """
+    categories = ['Education', 'Social', 'Games', 'Productivity', 'Tools', 
+                 'Health & Fitness', 'Business', 'Finance', 'Entertainment',
+                 'Shopping', 'Travel', 'Music']
+    
+    np.random.seed(42)  # For reproducibility
+    
+    # Generate data
+    data = {
+        'app_id': [f'app_{i}' for i in range(n_samples)],
+        'title': [f'App {i}' for i in range(n_samples)],
+        'category': np.random.choice(categories, n_samples),
+        'rating': np.random.uniform(1.0, 5.0, n_samples),
+        'reviews': np.random.randint(10, 1000000, n_samples),
+        'size_mb': np.random.uniform(1.0, 500.0, n_samples),
+        'installs': np.random.randint(100, 1000000000, n_samples),
+        'price_numeric': np.random.choice([0.0, 0.99, 1.99, 2.99, 4.99, 9.99], n_samples, p=[0.7, 0.1, 0.1, 0.05, 0.03, 0.02]),
+        'days_since_update': np.random.randint(1, 500, n_samples),
+        'app_age_days': np.random.randint(30, 2000, n_samples),
+        'developer_apps_count': np.random.randint(1, 20, n_samples),
+        'avg_sentiment': np.random.uniform(1.0, 5.0, n_samples),
+        'is_free': np.random.choice([0, 1], n_samples, p=[0.3, 0.7]),
+        'has_iap': np.random.choice([0, 1], n_samples, p=[0.4, 0.6]),
+        'is_mature': np.random.choice([0, 1], n_samples, p=[0.8, 0.2]),
+        'has_dev_website': np.random.choice([0, 1], n_samples, p=[0.2, 0.8]),
+        'has_dev_email': np.random.choice([0, 1], n_samples, p=[0.1, 0.9]),
+        'log_installs': np.log1p(np.random.randint(100, 1000000000, n_samples)),
+        'log_reviews': np.log1p(np.random.randint(10, 1000000, n_samples))
+    }
+    
+    # Create DataFrame
+    df = pd.DataFrame(data)
+    
+    # Calculate target variable (estimated longevity)
+    df['estimated_longevity_days'] = (
+        df['app_age_days'] * 0.4 + 
+        (df['rating'] * 180) * 0.3 + 
+        (df['log_reviews'] * 30) * 0.2 +
+        (365 / (df['days_since_update'] + 30)) * 100 * 0.1
+    )
+    
+    # Add some noise to make it more realistic
+    df['estimated_longevity_days'] += np.random.normal(0, 50, n_samples)
+    
+    # Ensure values are positive
+    df['estimated_longevity_days'] = np.maximum(30, df['estimated_longevity_days'])
+    
+    # Save synthetic data
+    df.to_csv('data/synthetic_app_data.csv', index=False)
+    
+    return df
+```
+
+```python
+# For this notebook, we'll use real data if possible, but fall back to synthetic data
+# to ensure we can complete the training process
+
+# List of app categories to collect
+categories = [
+    'education', 'social', 'games', 'productivity', 'tools', 
+    'health & fitness', 'business', 'finance', 'entertainment',
+    'shopping', 'travel', 'music'
+]
+
+# Option to load saved data, collect new data, or generate synthetic data
+use_synthetic = True  # Set to False to use real API data instead
+
+if os.path.exists('data/raw_app_data.csv'):
+    print("Loading existing app data...")
+    app_df = pd.read_csv('data/raw_app_data.csv')
+    print(f"Loaded data for {len(app_df)} apps")
+elif os.path.exists('data/synthetic_app_data.csv'):
+    print("Loading existing synthetic data...")
+    app_df = pd.read_csv('data/synthetic_app_data.csv')
+    print(f"Loaded synthetic data for {len(app_df)} apps")
+elif use_synthetic:
+    print("Generating synthetic app data for testing...")
+    app_df = generate_synthetic_data(n_samples=1000)
+    print(f"Generated synthetic data for {len(app_df)} apps")
+else:
+    print("Collecting new app data from Google Play Store...")
+    app_df = collect_apps_data(categories, apps_per_category=20)  # Reduced for demo
+    print(f"Collected data for {len(app_df)} apps")
+
+# Display sample of data
+app_df.head()
+``` 
